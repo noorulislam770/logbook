@@ -40,36 +40,37 @@ public class Logbook {
             this.year = year;
         }
         
-        this.logCalendar = new GregorianCalendar(year,month,1);
+        this.logCalendar = new GregorianCalendar(this.year,this.month - 1,1);
+        this.entries = new int[daysInMonth()];
         System.out.println("entreis lenght " + this.entries.length);
-        this.entries = new int[dayssInMonth()];
         
     }
     
 
-    public int dayssInMonth(){
-        int days = logCalendar.getActualMaximum(logCalendar.DAY_OF_MONTH);
-        return days;
-    }
+    // public int dayssInMonth(){
+    //     int days = logCalendar.getActualMaximum(logCalendar.DAY_OF_MONTH);
+    //     return days;
+    // }
 
     
     public void putEntry(int day, int value){
-        if (day > this.entries.length + 1){
+        if (day - 1 > this.entries.length ){
             System.out.println("You are Going beyond day limit " + this.entries.length + " days in this month");
         }
         else{
-            this.entries[day] = value;
+            System.out.println(day + " "  + value);
+            this.entries[day - 1 ] = value;
         }
     }
     
     
-    private boolean leapYear(){
+    public boolean leapYear(){
         return logCalendar.isLeapYear(this.year);
     }
 
     
     public int getEntry(int day){
-        return this.entries[day];
+        return this.entries[day - 1];
     }
     
     public int getMonth() {
@@ -81,10 +82,13 @@ public class Logbook {
     }
     
     public int daysInMonth(){
-        return this.logCalendar.getActualMaximum(this.month);
+        return this.logCalendar.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
     }
         
      public void displayChart(){
-         System.out.println("this method will display charts");
+         System.out.println("\n\t\t This Months Log\n");
+         System.out.println("\t------------------------------------------------------------");
+         System.out.println("\t  Saturday\t  Monday  \t  Tuesday \t  Wednesday  \t Thrusday \t  Friday  \t  Saturday ");
+         
      }
 }

@@ -44,8 +44,8 @@ public class Coffee {
             else if (option == 2){
                 System.out.println("Enter The Day you want to read sales for");
                 int day = in.nextInt();
-                log.getEntry(day);
-                System.out.println("Sales for day " + day + " = " + day);
+                int value  = log.getEntry(day);
+                System.out.println("Sales for day " + day + " = " + value);
             }
             else if (option == 3 ){
                 log.displayChart();
@@ -53,8 +53,8 @@ public class Coffee {
             else if (option ==0 ){
                 break;
             }
-            in.close();
         }
+        in.close();
         
     }
 }

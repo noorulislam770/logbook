@@ -5,7 +5,10 @@
  */
 // package logbook;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -85,10 +88,110 @@ public class Logbook {
         return this.logCalendar.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
     }
         
-     public void displayChart(){
-         System.out.println("\n\t\t This Months Log\n");
-         System.out.println("\t------------------------------------------------------------");
-         System.out.println("\t  Saturday\t  Monday  \t  Tuesday \t  Wednesday  \t Thrusday \t  Friday  \t  Saturday ");
-         
-     }
+    public void displayChart(){
+        System.out.println("\n\t\t This Months Log\n");
+        System.out.println("\t------------------------------------------------------------");
+        System.out.println("\tSunday\t \t Monday \t Tuesday\t Wednesday \tThrusday \t Friday \t Saturday ");
+        String firstDay = getFirstDateOfCurrentMonth();
+        // System.out.println("first Day " + firstDay);
+        
+        int tempNum = 0;
+
+        switch (firstDay) {
+            case "Saturday":
+                tempNum = 6;    
+                break;
+            case "Sunday":
+                tempNum = 0;    
+                break;
+            case "Monday":
+                tempNum = 1;    
+                break;
+            case "Tuesday":
+                tempNum = 2;    
+                break;
+            case "Wednesday":
+                tempNum = 3;    
+                break;
+            case "Thursday":
+                tempNum = 4;    
+                break;
+        
+            case "Friday":
+                tempNum = 5;    
+                break;
+        
+            default:
+                break;
+        }
+
+        int dayCounter = 1;
+        System.out.print("\t");
+        for (int i = 1; i <= 6;i ++){
+            if (tempNum == i){
+                String tempText = "            \t";
+                tempText = tempText.repeat(i);
+                System.out.print(tempText);
+            }
+        }
+        
+        dayCounter = tempNum + 1;
+        // System.out.println("\nday counter " + dayCounter);
+        // System.out.println("Temp counter " + tempNum);
+        int loopC = 0;
+        for (int num:entries){
+            
+            if (dayCounter % 7 == 0 ){
+                String text;
+                if (loopC == 0){
+                     text =  (dayCounter - tempNum +1) + " " + num;
+                    
+                }
+                else{
+                     text = "\t " + (dayCounter - tempNum +1) + " " + num;
+
+                }
+                int textLen = text.length();
+                if (textLen< 10){
+                    String spcs = " ";
+                    spcs = spcs.repeat(10-textLen);
+                    text = text + spcs ;
+                }
+                System.out.print(text);
+                
+                System.out.println("\t");
+            }
+            else{
+
+            
+                String text;
+                if (loopC == 0){
+                     text =  (dayCounter - tempNum +1) + " " + num;
+                    
+                }else{
+                     text = "\t " + (dayCounter - tempNum +1) + " " + num;
+
+                }
+                int textLen = text.length();
+                if (textLen< 10){
+                    String spcs = " ";
+                    spcs = spcs.repeat(10-textLen);
+                    text = text + spcs ;
+                }
+                System.out.print(text);
+
+            }
+
+            dayCounter ++;
+            loopC++;
+        }
+        System.out.println("");
+    }
+
+    private String getFirstDateOfCurrentMonth() {
+        logCalendar.set(Calendar.DAY_OF_MONTH,1);
+        DateFormat dateFormat =new SimpleDateFormat("EEEEEEEE");
+        String formattedDate = dateFormat.format(logCalendar.getTime());
+        return formattedDate;
+    }
 }
